@@ -185,12 +185,22 @@ body {
 }
 
 .hero-slide {
-    min-height: 80vh;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    min-height: 100vh;
     position: relative;
+    background-attachment: fixed;
 }
 
-.hero-slide::before {
+/* Remove default overlay for slides with background images */
+.hero-slide[style*="background-image"]::before {
+    display: none;
+}
+
+/* Keep overlay for slides without background images */
+.hero-slide:not([style*="background-image"]) {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+}
+
+.hero-slide:not([style*="background-image"])::before {
     content: '';
     position: absolute;
     top: 0;
@@ -204,6 +214,22 @@ body {
 .hero-slide .container {
     position: relative;
     z-index: 2;
+}
+
+/* Enhanced background image styling */
+.hero-slide[style*="background-image"] {
+    background-attachment: scroll;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Ensure text remains readable over background images */
+.hero-slide[style*="background-image"] .hero-badge,
+.hero-slide[style*="background-image"] .hero-title,
+.hero-slide[style*="background-image"] .hero-subtitle,
+.hero-slide[style*="background-image"] .hero-features {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .hero-icon {
